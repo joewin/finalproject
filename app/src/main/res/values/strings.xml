@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Political Preparedness</string>
+    <string name="logo">Logo Image</string>
+    <string name="representatives">FIND MY REPRESENTATIVES</string>
+    <string name="upcoming_election">UPCOMING ELECTIONS</string>
+    <string name="save_election">Save election</string>
+    <string name="election_name">Election Name</string>
+    <string name="election_date">22-Feb-2022</string>
+    <string name="election_information">Election Information</string>
+    <string name="voting_location">Voting Information</string>
+    <string name="ballot_information">Ballot Information</string>
+    <string name="follow_election">Follow Election</string>
+    <string name="unfollw_election">Unfollow Election</string>
+    <string name="representative_name">Representative Name</string>
+    <string name="representative_title">Representative Title</string>
+    <string name="representative_party">Representative Party</string>
+    <string name="search_representative">FIND MY REPRESENTATIVES</string>
+    <string name="use_location">USE MY LOCATION</string>
+
+    <!-- TODO: Add necessary string values -->
+
+</resources>
