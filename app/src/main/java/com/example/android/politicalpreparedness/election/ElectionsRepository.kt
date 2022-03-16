@@ -2,13 +2,9 @@ package com.example.android.politicalpreparedness.election
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.asLiveData
-import androidx.room.Database
 import com.example.android.politicalpreparedness.database.ElectionDatabase
 import com.example.android.politicalpreparedness.network.CivicsApi
-import com.example.android.politicalpreparedness.network.CivicsHttpClient
 import com.example.android.politicalpreparedness.network.models.Election
-import com.example.android.politicalpreparedness.network.models.State
 import com.example.android.politicalpreparedness.network.models.VoterInfoResponse
 
 class ElectionsRepository (val database: ElectionDatabase){

@@ -21,7 +21,7 @@ class VoterInfoFragment : Fragment() {
         ViewModelProvider(this, VoterInfoViewModelFactory(activity.application)).get(VoterInfoViewModel::class.java)
     }
     //declare navigation arguments
-    val args: VoterInfoFragmentArgs by navArgs()
+    private val args: VoterInfoFragmentArgs by navArgs()
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,

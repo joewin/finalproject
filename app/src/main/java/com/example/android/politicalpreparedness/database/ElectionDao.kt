@@ -3,7 +3,7 @@ package com.example.android.politicalpreparedness.database
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.android.politicalpreparedness.network.models.Election
-import kotlinx.coroutines.flow.Flow
+
 
 @Dao
 interface ElectionDao {

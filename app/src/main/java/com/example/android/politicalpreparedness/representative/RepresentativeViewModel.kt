@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.android.politicalpreparedness.network.models.Address
 import com.example.android.politicalpreparedness.representative.model.Representative
 import kotlinx.coroutines.launch
-import kotlin.math.log
+
 
 class RepresentativeViewModel: ViewModel() {
 
