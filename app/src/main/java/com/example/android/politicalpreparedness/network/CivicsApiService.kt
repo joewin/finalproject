@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit
 
 private const val BASE_URL = "https://www.googleapis.com/civicinfo/v2/"
 
-// TODO: Add adapters for Java Date and custom adapter ElectionAdapter (included in project)
+// adapters for Java Date and custom adapter ElectionAdapter (included in project)
 private val moshi = Moshi.Builder()
         .add(DateAdapter())
         .add(ElectionAdapter())

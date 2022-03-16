@@ -14,43 +14,38 @@ class RepresentativeViewModel: ViewModel() {
 
 
     private val repository = RepresentativeRepository()
-    //TODO: Establish live data for representatives and address
+    //Establish live data for representatives and address
     private val _representative = MutableLiveData<List<Representative>>()
     val representative : LiveData<List<Representative>>
         get() = _representative
-
-
     val address = MutableLiveData<Address>()
 
-
+    private var _emptyFields = MutableLiveData<Boolean?>()
+    val emptyFields: LiveData<Boolean?>
+        get() = _emptyFields
 
     init {
         address.value = Address("","","","","")
+        _emptyFields.value = true
     }
     //Create function to fetch representatives from API from a provided address
     fun setRepresentative(){
        viewModelScope.launch {
+                address.value?.state?.let { Log.i("Address LOG", it) }
                _representative.value = address.value?.let { repository.getAllRepresentative(it) }
        }
     }
-
+    //Create function get address from geo location
     fun setAddress(add:Address){
         address.value = add
-        Log.i("Address", address.value!!.line1)
+        setRepresentative()
     }
-    /**
-     *  The following code will prove helpful in constructing a representative from the API. This code combines the two nodes of the RepresentativeResponse into a single official :
 
-    val (offices, officials) = getRepresentativesDeferred.await()
-    _representatives.value = offices.flatMap { office -> office.getRepresentatives(officials) }
+    fun checkEmptyField(){
+        address.value?.let {
+            _emptyFields.value = it.line1.isEmpty() or it.city.isEmpty() or it.state.isEmpty() or it.zip.isEmpty()
+        }
 
-    Note: getRepresentatives in the above code represents the method used to fetch data from the API
-    Note: _representatives in the above code represents the established mutable live data housing representatives
-
-     */
-
-    //TODO: Create function get address from geo location
-
-    //TODO: Create function to get address from individual fields
+    }
 
 }

@@ -13,10 +13,11 @@ import com.example.android.politicalpreparedness.network.models.VoterInfoRespons
 
 class ElectionsRepository (val database: ElectionDatabase){
 
+    // get all elections from database
     fun getAllSaveElections(): LiveData<List<Election>> {
         return database.electionDao.getAllElections()
     }
-
+    // get all elections from network
    suspend fun getUpcomingElections():List<Election>{
        return try {
           // Log.i("Election response",CivicsApi.retrofitService.getElectionResponse().toString() )
@@ -26,6 +27,7 @@ class ElectionsRepository (val database: ElectionDatabase){
            emptyList()
        }
     }
+    // get all votoinfo from network
     suspend fun getVoterInfo(address: String,electionId: Int) : VoterInfoResponse?{
         return try{
             CivicsApi.retrofitService.getVoterInfoResponse(address,electionId)
@@ -35,16 +37,16 @@ class ElectionsRepository (val database: ElectionDatabase){
             null
         }
     }
-
+    //get election by id from database
     suspend fun getSavedElectionById(id:Int):Election{
         Log.i("ID ELECTION",id.toString())
         return database.electionDao.getElectionById(id)
     }
-
+    // save election to database
     suspend fun savedElection(election:Election){
         database.electionDao.insert(election)
     }
-
+    // delete election to database
     suspend fun deleteElection(election:Election){
         database.electionDao.deleteElection(election)
     }

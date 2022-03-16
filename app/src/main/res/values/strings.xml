@@ -12,12 +12,21 @@
     <string name="ballot_information">Ballot Information</string>
     <string name="follow_election">Follow Election</string>
     <string name="unfollw_election">Unfollow Election</string>
+
+
+
+    <!-- Add necessary string values -->
     <string name="representative_name">Representative Name</string>
     <string name="representative_title">Representative Title</string>
     <string name="representative_party">Representative Party</string>
+    <string name="content_des_image">%s Image</string>
+    <string name="content_des_facebook">%s Facebook page</string>
+    <string name="content_des_twitter">%s Twitter page</string>
+    <string name="content_des_webpage">%s Web page</string>
     <string name="search_representative">FIND MY REPRESENTATIVES</string>
     <string name="use_location">USE MY LOCATION</string>
-
-    <!-- TODO: Add necessary string values -->
-
+    <string name="line_1">Address Line 1</string>
+    <string name="line_2">Address Line 2</string>
+    <string name="city">City</string>
+    <string name="zip">"Zip "</string>
 </resources>

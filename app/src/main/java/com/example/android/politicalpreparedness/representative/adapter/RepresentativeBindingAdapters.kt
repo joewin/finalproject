@@ -1,10 +1,13 @@
 package com.example.android.politicalpreparedness.representative.adapter
 
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.Spinner
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
+import androidx.databinding.InverseBindingListener
 import com.bumptech.glide.Glide
 import com.example.android.politicalpreparedness.R
 
@@ -16,6 +19,7 @@ fun fetchImage(view: ImageView, src: String?) {
         Glide.with(view.context)
             .load(uri)
             .error(R.drawable.ic_profile)
+            .circleCrop()
             .placeholder(R.drawable.ic_profile)
             .into(view)
 

@@ -44,10 +44,10 @@ class ElectionViewHolder private constructor(val binding:ItemsElectionLayoutBind
     RecyclerView.ViewHolder(binding.root){
 
     fun bind(clickListener: ElectionListAdapter.ElectionListener, item: Election){
-        Log.i("Name", item.name)
+        //binding data
         binding.election= item
         binding.executePendingBindings()
-
+        //click listener
         itemView.setOnClickListener {
             clickListener.onClick(item)
         }

@@ -44,10 +44,14 @@ class VoterInfoViewModel(private val application: Application) : ViewModel() {
     val saveElection: LiveData<Election?>
         get() = _saveElection
 
+    private var _loading = MutableLiveData<Boolean?>()
+    val loading: LiveData<Boolean?>
+        get() = _loading
     init {
         _goToElectionInformation.value = false
         _goToVotingLocation.value = false
         _goToBallotInformation.value = false
+        _loading.value = true
     }
 
 
@@ -58,11 +62,11 @@ class VoterInfoViewModel(private val application: Application) : ViewModel() {
             val address = "${division.country} ${division.state}"
             _voterInfo.value =repository.getVoterInfo(address,electionId)?.state?.first()?.electionAdministrationBody
             _election.value = repository.getVoterInfo(address,electionId)?.election
-
+            _loading.value = false
         }
 
     }
-    //TODO: Add var and methods to support loading URLs
+    //methods to support loading URLs
     fun goToElectionInformation(){
         _goToElectionInformation.value = true
     }

@@ -3,7 +3,6 @@ package com.example.android.politicalpreparedness.election
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -13,7 +12,6 @@ import com.example.android.politicalpreparedness.databinding.FragmentVoterInfoBi
 
 class VoterInfoFragment : Fragment() {
     private lateinit var binding: FragmentVoterInfoBinding
-    private var isSaved:Boolean = false
 
     //Declare ViewModel
     private val viewModel: VoterInfoViewModel by lazy {
@@ -22,45 +20,57 @@ class VoterInfoFragment : Fragment() {
         }
         ViewModelProvider(this, VoterInfoViewModelFactory(activity.application)).get(VoterInfoViewModel::class.java)
     }
+    //declare navigation arguments
     val args: VoterInfoFragmentArgs by navArgs()
+
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+                              savedInstanceState: Bundle?): View {
 
         binding = FragmentVoterInfoBinding.inflate(inflater)
         binding.lifecycleOwner = this
 
-        //ass ViewModel values and create ViewModel
+        /**
+         * ensure proper data is provided from previous fragment.
+         */
         val electionId = args.argElectionId
         val division = args.argDivision
 
+        //loading voterInfo
         viewModel.loadVoterInfo(division,electionId)
-        //checking the election Id is in the saved
+
 
         binding.viewModel = viewModel
-        /**
-        Hint: You will need to ensure proper data is provided from previous fragment.
-        */
+
+
+        viewModel.loading.observe(viewLifecycleOwner,{
+            if(it == true){
+                clickAbleFalse()
+            }
+            else{
+              clickAbleTrue()
+            }
+        })
+        // when user click these link open browser and open these links
         viewModel.goToBallotInformation.observe(viewLifecycleOwner,{
             if(it){
                 loadingUrls(viewModel.voterInfo.value?.ballotInfoUrl.toString())
                 viewModel.doneGotoBallotInformation()
             }
         })
-
         viewModel.goToElectionInformation.observe(viewLifecycleOwner,{
             if(it){
                 loadingUrls(viewModel.voterInfo.value?.electionInfoUrl.toString())
                 viewModel.doneGoToElectionInformation()
             }
         })
-
         viewModel.goToVotingLocation.observe(viewLifecycleOwner,{
             if(it){
                 loadingUrls(viewModel.voterInfo.value?.votingLocationFinderUrl.toString())
                 viewModel.doneGoToVotingLocation()
             }
         })
+
         //Handle save button UI state
         viewModel.saveElection.observe(viewLifecycleOwner,{
             if(it==null){
@@ -70,12 +80,12 @@ class VoterInfoFragment : Fragment() {
                 binding.savedButton.text = getString(R.string.unfollw_election)
             }
         })
-
+        //Handle save button clicks
         binding.savedButton.setOnClickListener {
             viewModel.saveElection()
         }
 
-        //TODO: cont'd Handle save button clicks
+
         return binding.root
     }
 
@@ -84,5 +94,19 @@ class VoterInfoFragment : Fragment() {
         val uri = Uri.parse(url)
         val i = Intent(Intent.ACTION_VIEW, uri)
         startActivity(i)
+    }
+    //set clickable true after loading
+    private fun clickAbleTrue(){
+        binding.savedButton.isClickable = true
+        binding.stateHeader.isClickable = true
+        binding.stateLocations.isClickable = true
+        binding.stateBallot.isClickable = true
+    }
+    //set clickable false while loading
+    private fun clickAbleFalse(){
+        binding.savedButton.isClickable = false
+        binding.stateHeader.isClickable = false
+        binding.stateLocations.isClickable = false
+        binding.stateBallot.isClickable = false
     }
 }

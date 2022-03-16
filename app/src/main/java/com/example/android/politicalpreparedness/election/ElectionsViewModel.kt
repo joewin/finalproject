@@ -16,22 +16,22 @@ class ElectionsViewModel(application: Application): ViewModel() {
 
     private val database = ElectionDatabase.getInstance(application)
     private val repository = ElectionsRepository(database)
-    //TODO: Create live data val for upcoming elections
-    private var _elections = MutableLiveData<List<Election>> ()
 
+    //live data val for upcoming elections
+    private var _elections = MutableLiveData<List<Election>> ()
     val elections: LiveData<List<Election>>
         get() = _elections
-    //TODO: Create live data val for saved elections
 
-    private var _followedElections = MutableLiveData<List<Election>>()
-
+    //live data val for saved elections
     val followedElections = repository.getAllSaveElections()
 
 
-
+    // navigation livedata
     private val _navigateToVoterInfo = MutableLiveData<Election?>()
     val navigateToVoterInfo: LiveData<Election?>
         get() = _navigateToVoterInfo
+
+
     init{
         try {
            getUpcomingElectionsFromNetwork()
@@ -41,14 +41,13 @@ class ElectionsViewModel(application: Application): ViewModel() {
 
     }
 
-    //TODO: Create val and functions to populate live data for upcoming elections from the API and saved elections from local database
+    //Create val and functions to populate live data for upcoming elections from the API and saved elections from local database
    private fun getUpcomingElectionsFromNetwork() {
         viewModelScope.launch {
             _elections.value = repository.getUpcomingElections()
         }
     }
-    //TODO: Create functions to navigate to saved or upcoming election voter info
-
+    //Create functions to navigate to saved or upcoming election voter info
     fun onItemClick(item: Election){
         _navigateToVoterInfo.value = item
     }
